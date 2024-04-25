@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Web Scrapper</title>
+ 
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" crossorigin="anonymous"></script>
+ 
+  <!-- Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.datatables.net/2.0.3/css/dataTables.dataTables.css" />
+  <script src="https://cdn.datatables.net/2.0.3/js/dataTables.js"></script>
+  <style>
+    body {
+   font-family: Arial, sans-serif;
+   background-color: white;
+   margin: 0;
+   padding: 0;
+   background: white;
+ }
+
+
+
+ .my-button {
+   background-color: #4CAF50; /* Green */
+   border: none;
+   color: white;
+   padding: 15px 32px;
+   text-align: center;
+   text-decoration: none;
+   display: inline-block;
+   font-size: 16px;
+   margin: 4px 2px;
+   cursor: pointer;
+   border-radius: 8px;
+ }
+
+ /* Styles for the popup container */
+ .popup-container {
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   background-color: rgba(0, 0, 0, 0.5);
+   z-index: 9999;
+   opacity: 0;
+   pointer-events: none;
+   transition: opacity 0.3s ease;
+ }
+
+ /* Styles for the popup */
+ .popup {
+   background-color: #fefefe;
+   padding: 40px; /* Increased padding for more space */
+   border-radius: 8px;
+   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+   animation: slideIn 0.3s forwards;
+   width: 400px; /* Increased width */
+   position: relative;
+ }
+
+ /* Animation for the popup */
+ @keyframes slideIn {
+   from {
+     transform: translateY(-100%);
+   }
+   to {
+     transform: translateY(0);
+   }
+ }
+
+ /* Close button style */
+ .close-btn {
+   position: absolute;
+   top: 10px;
+   right: 10px;
+   cursor: pointer;
+ }
+
+ /* Form styles */
+ form {
+   display: flex;
+   flex-direction: column;
+ }
+
+ label {
+   margin-bottom: 10px;
+ }
+
+ textarea {
+   padding: 6px; /* Reduced padding */
+   margin-bottom: 10px; /* Reduced margin */
+   border-radius: 5px;
+   border: 1px solid #ccc;
+   resize: none; /* Disable textarea resize */
+   height: 50px; /* Reduced height */
+ }
+
+ input[type="submit"] {
+   background-color:#007bff;
+   color: white;
+   border: none;
+   padding: 10px 20px;
+   border-radius: 5px;
+   cursor: pointer;
+ }
+
+ /* Success message popup */
+ .success-popup {
+   display: none;
+   position: fixed;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   background-color: #fefefe;
+   padding: 20px;
+   border-radius: 8px;
+   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+   z-index: 10000;
+ }
+
+ .success-message {
+   color: #007bff;
+   text-align: center;
+ }
+
+ .containerr {
+   padding-top: 20px;
+   padding-bottom: 20px;
+ }
+
+ .nav-tabs {
+   justify-content: center;
+ }
+
+ .input-containerrr {
+   text-align: center;
+   border: 2px solid #04172b;
+   border-radius: 10px;
+   box-shadow: 0px 0px 10px rgb(37, 111, 223);
+   padding: 20px;
+   margin-top: 2%;
+   margin-left: 35%;
+   width: 30%;
+   background-color:white;
+ }
+
+ .input-row {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   margin-bottom: 10px;
+ }
+
+ .input-label {
+   flex: 1;
+   text-align: right;
+   margin-right: 10px;
+   font-weight: bold;
+   font-size: 20px;
+ }
+
+ .input-field {
+   flex: 2;
+   width: 100%;
+   padding: 10px;
+   border-radius: 5px;
+   border: 1px solid black;
+   font-size: 16px;
+   height: 40px;
+ }
+
+ .input-submit {
+   width: 150px;
+   padding: 10px;
+   margin: 10px;
+   border-radius: 5px;
+   border: none;
+   background-color: #007bff;
+   color: #fff;
+   font-size: 16px;
+   cursor: pointer;
+ }
+
+ .input-submit:hover {
+   background-color: #0056b3;
+ }
+
+ /* Enhancements for Screen 2 */
+ .screen2 {
+   padding: 20px;
+   margin-top: 20px;
+   border: 2px solid #000;
+   border-radius: 10px;
+   box-shadow: 0px 0px 10px #007bff;
+   background-color: #fff;
+   width: 40%;
+   margin-left: 30%;
+  
+ }
+
+.card{
+ 
+ border: 2px solid #000;
+   border-radius: 10px;
+   box-shadow: 0px 0px 10px #007bff;
+   padding:10px;
+   
+   margin-top: 10px;
+height: 150px; /* Set a fixed height for the card */
+/* Enable vertical scrolling */
+
+}
+
+ .nav-link.active {
+ background-color: #007bff !important;
+ color: #fff !important; /* Change text color for better visibility */
+}
+.card h3 {
+
+top: 0;
+background-color: #fff; /* Adjust the background color as needed */
+
+}
+
+ .checkboxes {
+   overflow-y: auto;
+   max-height: 200px;
+   padding-right: 20px; /* Add some padding to prevent scrollbar overlapping with content */
+ }
+
+
+.screen2 {
+display: flex;
+justify-content: space-between; /* Distribute space between items */
+}
+
+.screen2-item, .screen2-department{
+margin-right: 0; /* Remove space between items */
+box-sizing: border-box; /* Include padding and border in the element's total width and height */
+padding: 0 5px; /* Add padding to each container */
+overflow-y: auto;
+}
+
+
+
+ .screen2 .container {
+ margin-top: 30%; /* Add some space before the table */
+}
+.drop {
+position: relative;
+}
+.drop {
+position: relative;
+}
+
+.submit-container {
+left:50%;
+top:32%;
+position:absolute;
+
+
+transform: translateX(-50%);
+bottom: -60px;
+}
+
+.img{
+width:40%;
+height: 50px;
+}
+
+.overlay {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      /* background-color: rgba(2, 2, 20, 0.5); Semi-transparent white background */
+     
+      background-color: rgb(8, 2, 61);
+   
+      display: none; /* Initially hidden */
+    }
+ 
+    .loader {
+      border: 10px solid #f3f3f3; /* Light grey */
+      border-top: 10px solid #083a5c; /* Blue */
+      border-radius: 20%;
+      width: 70px;
+      height: 70px;
+      animation: spin 2s linear infinite; /* Apply animation */
+      position: absolute;
+      left: 45%;
+      top: 45%;
+      /* Center it */
+    }
+ 
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+ 
+ 
+#tabl{
+ /* Adjust the value as needed */
+ margin-top:5%;
+  border: 2px solid #04172b;
+      border-radius: 10px;
+      box-shadow: 0px 0px 10px rgb(37, 111, 223);
+}
+#refreshDataBtn{
+left:-40%;
+}
+
+</style>
+ 
+</head>
+<body>
+ 
+  <div id="splashScreen" style="display: flex; justify-content: center; align-items: center; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgb(3, 3, 43); z-index: 9999;">
+    <img src="{{ url_for('static', filename='Tata-Group-logo-3840x2160.png') }}" alt="Splash Image" style="width: 30%;  top:45%; left:45%" />
+  </div>
+ 
+  <!-- Main content -->
+ 
+ 
+        <!-- Screen 2 Content -->
+        <!-- Display CSV data in a table -->
+ 
+        <div class="image-container">
+          <img src= "{{ url_for('static', filename='tce_owler_20161122_073020_large.png') }}"  alt="Image Description" style="width:32%; height: 100px; margin-left:35%; margin-top:10px; ">
+        </div>
+        <div class="container">
+          <div class="row " >
+            <div class="col-md-6">
+              <div class="card">
+                <h3>Items</h3>
+             
+                <div class="screen2-item" id="screen2-items"></div>
+            </div>
+            </div>
+            <div class="col-md-6">
+              <div class="card">
+                <h3>Departments</h3>
+                <div class="screen2-department" id="screen2-department"></div>
+            </div>
+          </div>
+         
+          <div class="container">
+            <div class="row">
+              <div class="col-sm-4">
+                <button id="submitBtn" class="btn btn-primary btn-block" style="margin-top: 20px;" onclick="sendData()">Load Data</button>
+              </div>
+              <div class="col-sm-4">
+                <button id="refreshDataBtn" class="btn btn-primary btn-block" style="margin-top: 20px;" onclick="refreshData()">Refresh Data</button>
+              </div>
+              <div class="col-sm-4">
+                <button class="btn btn-primary btn-block" style="margin-top: 20px;" onclick="togglePopup()">Add Data</button>
+              </div>
+            </div>
+          </div>
+ 
+<div id="popupContainer" class="popup-container">
+  <div class="popup">
+    <span class="close-btn" onclick="togglePopup()">&times;</span>
+    <h2>Data Entry Form</h2>
+    <form id="myForm" onsubmit="return confirmSubmit()">
+      <label for="item">Item:</label>
+      <textarea id="item" name="item" rows="4"></textarea> <!-- Multiline textarea -->
+      <label for="department">Department:</label>
+      <textarea id="department" name="department" rows="4"></textarea> <!-- Multiline textarea -->
+      <input type="submit" value="Submit">
+    </form>
+  </div>
+</div>
+ 
+<div id="successPopup" class="success-popup">
+  <p class="success-message">You have successfully submitted.</p>
+</div>
+           
+             
+           
+           
+           
+           
+           
+       
+      </div>
+       
+       
+     
+</div>
+<div id="tabl"   style="margin-top: 20px;">
+  <div class="row"  >
+    <div class="col-12">
+      <div class="table-responsive p-4" style="width: 100%; overflow-x: auto; overflow-y: auto; margin-top:30px; height: 53vh;">
+        <table class="table" id="data-table"  style="width: 100%; height: 50vh;">
+           
+        </table>
+      </div>
+    </div>
+ 
+  </div>
+ 
+</div>
+<div id="loadingOverlay" class="overlay">
+  <div class="loader"></div>
+</div>
+</div>
+
+</div>
+
+  <!-- Bootstrap JS, Popper.js, and jQuery -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+ 
+  <!-- JavaScript for chart creation -->
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+ 
+  <script>
+    $(document).ready(function () {
+        $('#data-table').DataTable({
+            "paging": true,
+            "pageLength": 5,
+            "lengthMenu": [5, 10, 15, 20]
+        });
+    });
+ 
+    setTimeout(function() {
+        document.getElementById("splashScreen").style.display = "none";
+    }, 3000);
+ 
+
+ 
+    function sendData() {
+      document.getElementById("loadingOverlay").style.display = "block"; // Show loading overlay
+        // var input1Value = document.getElementById("items").value;
+        // var input2Value = document.getElementById("department").value;
+ 
+        fetch('/sendData', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({})
+        })
+        .then(response => {
+            return response.json();
+        })
+        .then(data => {
+          var itemsContainer = document.getElementById('screen2-items');
+          var departmentContainer = document.getElementById('screen2-department');
+          var tableContainer = document.getElementById('data-table');
+          itemsContainer.innerHTML = '';
+          departmentContainer.innerHTML = '';
+          tableContainer.innerHTML = '';
+ 
+          data.items.forEach(function(item) {
+            var checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.id = item;
+            checkbox.name = 'items';
+            checkbox.value = item;
+ 
+            var label = document.createElement('label');
+            label.htmlFor = item;
+            label.appendChild(document.createTextNode(item));
+ 
+            itemsContainer.appendChild(checkbox);
+            itemsContainer.appendChild(label);
+            itemsContainer.appendChild(document.createElement('br'));
+          });
+ 
+          data.department.forEach(function(department) {
+              var checkbox = document.createElement('input');
+              checkbox.type = 'checkbox';
+              checkbox.id = department;
+              checkbox.name = 'department';
+              checkbox.value = department;
+ 
+              var label = document.createElement('label');
+              label.htmlFor = department;
+              label.appendChild(document.createTextNode(department));
+ 
+              departmentContainer.appendChild(checkbox);
+              departmentContainer.appendChild(label);
+              departmentContainer.appendChild(document.createElement('br'));
+            });
+ 
+            var dataframe = JSON.parse(data.dataframe);
+            var columns = Object.keys(dataframe[0]);
+            var table = document.createElement('table');
+            table.classList.add('table');
+ 
+            var thead = document.createElement('thead');
+            var tr = document.createElement('tr');
+            columns.forEach(function(column) {
+                var th = document.createElement('th');
+                th.textContent = column;
+                tr.appendChild(th);
+            });
+            thead.appendChild(tr);
+            table.appendChild(thead);
+ 
+            var tbody = document.createElement('tbody');
+            dataframe.forEach(function(row) {
+                var tr = document.createElement('tr');
+                columns.forEach(function(column) {
+                    var td = document.createElement('td');
+                    td.textContent = row[column];
+                    tr.appendChild(td);
+                });
+                tbody.appendChild(tr);
+            });
+            table.appendChild(tbody);
+ 
+            tableContainer.appendChild(table);
+ 
+            document.getElementById("loadingOverlay").style.display = "none";
+            document.getElementById("screen2").classList.add("show", "active");
+        })  
+        .catch(error => {
+        console.error('Error:', error);
+        // Hide loading overlay in case of error
+        document.getElementById("loadingOverlay").style.display = "none";
+    });
+    }
+  </script>
+
+<script>
+  function refreshData() {
+      // Get selected checkbox values
+      var selectedItems = [];
+      var selectedDepartments = [];
+   
+      document.querySelectorAll('input[name="items"]:checked').forEach(function(checkbox) {
+          selectedItems.push(checkbox.value);
+      });
+   
+      document.querySelectorAll('input[name="department"]:checked').forEach(function(checkbox) {
+          selectedDepartments.push(checkbox.value);
+      });
+   
+      // Send selected values to backend
+      fetch('/refreshData', {
+          method: 'POST',
+          body: JSON.stringify({ selectedItems: selectedItems, selectedDepartments: selectedDepartments }),
+          headers: {
+              'Content-Type': 'application/json'
+          }
+      })
+      .then(response => {
+          // Handle response if needed
+          return response.json();
+      })
+      .then(data => {
+        var tableContainer = document.getElementById('data-table');
+        // Clear previous contents
+        tableContainer.innerHTML = '';
+        // Create HTML table from the DataFrame
+        var dataframe = JSON.parse(data.dataframe);
+        var columns = Object.keys(dataframe[0]);
+        var table = document.createElement('table');
+        table.classList.add('table');
+   
+        // Create table header
+        var thead = document.createElement('thead');
+          var tr = document.createElement('tr');
+          columns.forEach(function(column) {
+              var th = document.createElement('th');
+              th.textContent = column;
+              tr.appendChild(th);
+          });
+          thead.appendChild(tr);
+          table.appendChild(thead);
+        var tbody = document.createElement('tbody');
+          dataframe.forEach(function(row) {
+              var tr = document.createElement('tr');
+              columns.forEach(function(column) {
+                  var td = document.createElement('td');
+                  td.textContent = row[column];
+                  tr.appendChild(td);
+              });
+              tbody.appendChild(tr);
+          });
+          table.appendChild(tbody);
+   
+          // Append table to container
+          tableContainer.appendChild(table);
+   
+   
+          // let scrap_table = new DataTable('#data-table', {responsive: true});
+          $('#data-table').DataTable();
+   
+      })
+      .catch(error => {
+          console.error('Error:', error);
+      });
+  }
+   
+  </script>
+ 
+ <script>
+  function togglePopup() {
+    var popupContainer = document.getElementById("popupContainer");
+    if (popupContainer.style.opacity === "1") {
+      popupContainer.style.opacity = "0";
+      popupContainer.style.pointerEvents = "none";
+    } else {
+      popupContainer.style.opacity = "1";
+      popupContainer.style.pointerEvents = "auto";
+    }
+  }
+
+  function confirmSubmit() {
+  var confirmation = confirm("Are you sure?");
+  if (confirmation) {
+    var item = document.getElementById("item").value;
+    var department = document.getElementById("department").value;
+    var formData = {
+      item: item,
+      department: department
+    };
+    // Send formData as JSON via fetch
+    fetch('/submit_form', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(formData)
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Failed to send form data');
+      }
+      return response.json(); // Parse JSON response
+    })
+    .then(data => {
+      var itemsContainer = document.getElementById('screen2-items');
+      var departmentContainer = document.getElementById('screen2-department');
+      var tableContainer = document.getElementById('data-table');
+      itemsContainer.innerHTML = '';
+      departmentContainer.innerHTML = '';
+      tableContainer.innerHTML = '';
+
+      data.items.forEach(function(item) {
+        var checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.id = item;
+        checkbox.name = 'items';
+        checkbox.value = item;
+
+        var label = document.createElement('label');
+        label.htmlFor = item;
+        label.appendChild(document.createTextNode(item));
+
+        itemsContainer.appendChild(checkbox);
+        itemsContainer.appendChild(label);
+        itemsContainer.appendChild(document.createElement('br'));
+      });
+
+      data.department.forEach(function(department) {
+        var checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.id = department;
+        checkbox.name = 'department';
+        checkbox.value = department;
+
+        var label = document.createElement('label');
+        label.htmlFor = department;
+        label.appendChild(document.createTextNode(department));
+
+        departmentContainer.appendChild(checkbox);
+        departmentContainer.appendChild(label);
+        departmentContainer.appendChild(document.createElement('br'));
+      });
+    })
+    .catch(error => {
+      console.error(error);
+    });
+      console.log(formData); // Log form data to console
+      document.getElementById("myForm").reset(); // Reset the form
+      togglePopup(); // Close the popup
+  }
+  return false; // Prevent form submission
+}
+
+  
+  function showSuccessPopup() {
+    var successPopup = document.getElementById("successPopup");
+    successPopup.style.display = "block";
+    setTimeout(function() {
+      successPopup.style.display = "none"; // Hide success message after 2 seconds
+    }, 2000);
+  }
+</script>
+</body>
+</html>
