@@ -1,1 +1,1 @@
-This is web Scaping code for https://bidplus.gem.gov.in/all-bids#
+This is web Scraping code for https://bidplus.gem.gov.in/all-bids#
