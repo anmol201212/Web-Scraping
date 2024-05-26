@@ -11,17 +11,18 @@
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.datatables.net/2.0.3/css/dataTables.dataTables.css" />
   <script src="https://cdn.datatables.net/2.0.3/js/dataTables.js"></script>
+ 
   <style>
     body {
    font-family: Arial, sans-serif;
    background-color: white;
    margin: 0;
    padding: 0;
-   background: white;
+   background:rgb(188, 205, 233);
  }
-
-
-
+ 
+ 
+ 
  .my-button {
    background-color: #4CAF50; /* Green */
    border: none;
@@ -35,7 +36,7 @@
    cursor: pointer;
    border-radius: 8px;
  }
-
+ 
  /* Styles for the popup container */
  .popup-container {
    position: fixed;
@@ -52,7 +53,7 @@
    pointer-events: none;
    transition: opacity 0.3s ease;
  }
-
+ 
  /* Styles for the popup */
  .popup {
    background-color: #fefefe;
@@ -63,7 +64,7 @@
    width: 400px; /* Increased width */
    position: relative;
  }
-
+ 
  /* Animation for the popup */
  @keyframes slideIn {
    from {
@@ -73,7 +74,7 @@
      transform: translateY(0);
    }
  }
-
+ 
  /* Close button style */
  .close-btn {
    position: absolute;
@@ -81,17 +82,17 @@
    right: 10px;
    cursor: pointer;
  }
-
+ 
  /* Form styles */
  form {
    display: flex;
    flex-direction: column;
  }
-
+ 
  label {
    margin-bottom: 10px;
  }
-
+ 
  textarea {
    padding: 6px; /* Reduced padding */
    margin-bottom: 10px; /* Reduced margin */
@@ -100,7 +101,7 @@
    resize: none; /* Disable textarea resize */
    height: 50px; /* Reduced height */
  }
-
+ 
  input[type="submit"] {
    background-color:#007bff;
    color: white;
@@ -109,7 +110,7 @@
    border-radius: 5px;
    cursor: pointer;
  }
-
+ 
  /* Success message popup */
  .success-popup {
    display: none;
@@ -123,21 +124,21 @@
    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
    z-index: 10000;
  }
-
+ 
  .success-message {
    color: #007bff;
    text-align: center;
  }
-
+ 
  .containerr {
    padding-top: 20px;
    padding-bottom: 20px;
  }
-
+ 
  .nav-tabs {
    justify-content: center;
  }
-
+ 
  .input-containerrr {
    text-align: center;
    border: 2px solid #04172b;
@@ -149,14 +150,14 @@
    width: 30%;
    background-color:white;
  }
-
+ 
  .input-row {
    display: flex;
    align-items: center;
    justify-content: center;
    margin-bottom: 10px;
  }
-
+ 
  .input-label {
    flex: 1;
    text-align: right;
@@ -164,7 +165,7 @@
    font-weight: bold;
    font-size: 20px;
  }
-
+ 
  .input-field {
    flex: 2;
    width: 100%;
@@ -174,7 +175,7 @@
    font-size: 16px;
    height: 40px;
  }
-
+ 
  .input-submit {
    width: 150px;
    padding: 10px;
@@ -186,11 +187,11 @@
    font-size: 16px;
    cursor: pointer;
  }
-
+ 
  .input-submit:hover {
    background-color: #0056b3;
  }
-
+ 
  /* Enhancements for Screen 2 */
  .screen2 {
    padding: 20px;
@@ -201,9 +202,9 @@
    background-color: #fff;
    width: 40%;
    margin-left: 30%;
-  
+ 
  }
-
+ 
 .card{
  
  border: 2px solid #000;
@@ -214,41 +215,41 @@
    margin-top: 10px;
 height: 150px; /* Set a fixed height for the card */
 /* Enable vertical scrolling */
-
+ 
 }
-
+ 
  .nav-link.active {
  background-color: #007bff !important;
  color: #fff !important; /* Change text color for better visibility */
 }
 .card h3 {
-
+ 
 top: 0;
 background-color: #fff; /* Adjust the background color as needed */
-
+ 
 }
-
+ 
  .checkboxes {
    overflow-y: auto;
    max-height: 200px;
    padding-right: 20px; /* Add some padding to prevent scrollbar overlapping with content */
  }
-
-
+ 
+ 
 .screen2 {
 display: flex;
 justify-content: space-between; /* Distribute space between items */
 }
-
+ 
 .screen2-item, .screen2-department{
 margin-right: 0; /* Remove space between items */
 box-sizing: border-box; /* Include padding and border in the element's total width and height */
 padding: 0 5px; /* Add padding to each container */
 overflow-y: auto;
 }
-
-
-
+ 
+ 
+ 
  .screen2 .container {
  margin-top: 30%; /* Add some space before the table */
 }
@@ -258,22 +259,22 @@ position: relative;
 .drop {
 position: relative;
 }
-
+ 
 .submit-container {
 left:50%;
 top:32%;
 position:absolute;
-
-
+ 
+ 
 transform: translateX(-50%);
 bottom: -60px;
 }
-
+ 
 .img{
 width:40%;
 height: 50px;
 }
-
+ 
 .overlay {
       position: fixed;
       width: 100%;
@@ -307,8 +308,11 @@ height: 50px;
  
  
 #tabl{
+  background-color: #f3f3f3;
  /* Adjust the value as needed */
- margin-top:5%;
+ margin-left:5%;
+ width:90%;
+
   border: 2px solid #04172b;
       border-radius: 10px;
       box-shadow: 0px 0px 10px rgb(37, 111, 223);
@@ -316,14 +320,58 @@ height: 50px;
 #refreshDataBtn{
 left:-40%;
 }
+/* Styles for table rows */
+.table tbody th {
+  max-height: 100px; /* Set a maximum height for table rows */
+  overflow: hidden; /* Hide overflow content */
+}
+.table thead th {
+    position: sticky;
+    top: 0;
+    background-color: rgb(208, 220, 238); /* Change this to your desired background color */
+    z-index: 10;
+    overflow: hidden; /* Hide overflow content */
+  }
+#data-table tbody td {
+    word-wrap: break-word;
+  }
+/* Styles for table cells */
 
+.line-loader {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 9px; /* Increased the height to make the loader bolder */
+  background: linear-gradient(to right, #2196F3 0%, #2196F3 50%, #000 50%, #000 100%);
+  background-size: 200% 100%;
+  animation: loading 2.5s linear infinite; /* Slightly faster animation */
+  border-radius: 6px; /* Curved sides */
+}
+ 
+@keyframes loading {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
+}
+.spacer {
+    height: /* Height of the sticky header */ 40px;
+    width: 100%;
+  }
+ 
 </style>
  
 </head>
 <body>
  
-  <div id="splashScreen" style="display: flex; justify-content: center; align-items: center; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgb(3, 3, 43); z-index: 9999;">
-    <img src="{{ url_for('static', filename='Tata-Group-logo-3840x2160.png') }}" alt="Splash Image" style="width: 30%;  top:45%; left:45%" />
+  <div id="splashScreen" style="display: flex; justify-content: center; align-items: center; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgb(0, 0, 0); z-index: 9999;">
+    <img src="{{ url_for('static', filename='images.png') }}" alt="Splash Image" style="width: 40%;  top:45%; left:45%" />
+    <div class="line-loader"></div>
+ 
+ 
   </div>
  
   <!-- Main content -->
@@ -331,12 +379,19 @@ left:-40%;
  
         <!-- Screen 2 Content -->
         <!-- Display CSV data in a table -->
- 
-        <div class="image-container">
-          <img src= "{{ url_for('static', filename='tce_owler_20161122_073020_large.png') }}"  alt="Image Description" style="width:32%; height: 100px; margin-left:35%; margin-top:10px; ">
+        <div class="row align-items-center">
+          <div class="col-md-5">
+            <div class="image-container">
+              <img src="{{ url_for('static', filename='Tata-Group-logo-3840x2160.png') }}" alt="Tata Group Logo" style="width: 30%; height: 80px; margin-left: 0; margin-top: 5px;">
+            </div>
+          </div>
+          <div class="col-md-5 d-flex align-items-center"> <!-- Make the column flex to align items -->
+            <img src="{{ url_for('static', filename='tracking_3273401.png') }}" alt="Image" style="width: 50px; height: 50px; margin-right: 10px;  margin-left:-10%;">
+            <h1 class="website-name" style="text-shadow: 0px 0px 10px rgb(37, 111, 223); color:black ;">GEM Tender Tracer</h1>
+          </div>
         </div>
-        <div class="container">
-          <div class="row " >
+<div class="container">
+  <div class="row " >
             <div class="col-md-6">
               <div class="card">
                 <h3>Items</h3>
@@ -350,20 +405,21 @@ left:-40%;
                 <div class="screen2-department" id="screen2-department"></div>
             </div>
           </div>
-         
-          <div class="container">
-            <div class="row">
-              <div class="col-sm-4">
+    </div>  
+</div>  
+<div class="container">
+      <div class="row">
+              <!-- <div class="col-sm-4">
                 <button id="submitBtn" class="btn btn-primary btn-block" style="margin-top: 20px;" onclick="sendData()">Load Data</button>
-              </div>
-              <div class="col-sm-4">
-                <button id="refreshDataBtn" class="btn btn-primary btn-block" style="margin-top: 20px;" onclick="refreshData()">Refresh Data</button>
-              </div>
-              <div class="col-sm-4">
-                <button class="btn btn-primary btn-block" style="margin-top: 20px;" onclick="togglePopup()">Add Data</button>
-              </div>
-            </div>
-          </div>
+              </div> -->
+        <div class="col-sm-4">
+                <button id="refreshDataBtn" class="btn btn-primary btn-block" style="margin-top: 20px; margin-left: 50px; " onclick="refreshData()">Load Data</button>
+        </div>
+        <div class="col-sm-4">
+                <button class="btn btn-primary btn-block" style="margin-top: 20px; margin-left: 80%;" onclick="togglePopup()">Add Data</button>
+        </div>
+     </div>
+</div>
  
 <div id="popupContainer" class="popup-container">
   <div class="popup">
@@ -382,26 +438,28 @@ left:-40%;
 <div id="successPopup" class="success-popup">
   <p class="success-message">You have successfully submitted.</p>
 </div>
-           
-             
-           
-           
-           
-           
-           
-       
-      </div>
-       
-       
-     
-</div>
 <div id="tabl"   style="margin-top: 20px;">
   <div class="row"  >
     <div class="col-12">
-      <div class="table-responsive p-4" style="width: 100%; overflow-x: auto; overflow-y: auto; margin-top:30px; height: 53vh;">
-        <table class="table" id="data-table"  style="width: 100%; height: 50vh;">
-           
+      <div class="table-responsive p-4" style="width: 100%; overflow-x: auto; overflow-y: auto; margin-top:30px; height: 56vh;">
+        <table class="table" id="data-table" style="width: 100%;">
+          <thead>
+              <tr>
+                  <th>Bid Number</th>
+                  <th>RA Number</th>
+                  <th style="width:0;">Items</th>
+                  <th>Quantity</th>
+                  <th>Department</th>
+                  <th style="width: 15%;">Start Date</th>
+                  <th style="width: 15%;">End Date</th>
+              </tr>
+          </thead>
+          <tbody style="position: relative; overflow-y: auto; height: 300px;">
+              <!-- Data goes here -->
+         
+          </tbody>
         </table>
+        <div class="spacer"></div>
       </div>
     </div>
  
@@ -411,38 +469,68 @@ left:-40%;
 <div id="loadingOverlay" class="overlay">
   <div class="loader"></div>
 </div>
-</div>
-
-</div>
-
+ 
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" crossorigin="anonymous"></script>
+  <!-- <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script> -->
+ 
+  <!-- DataTables Styles -->
+  <!-- <link href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css" rel="stylesheet"> -->
+  <script>
+    window.addEventListener('DOMContentLoaded', function () {
+      var tableBody = document.querySelector('.table tbody');
+      var headerHeight = document.querySelector('.table thead').offsetHeight;
+  
+      tableBody.addEventListener('scroll', function () {
+        var scrollOffset = tableBody.scrollTop;
+        if (scrollOffset > headerHeight) {
+          tableBody.style.clip = 'rect(' + (scrollOffset - headerHeight) + 'px, auto, auto, auto)';
+        } else {
+          tableBody.style.clip = '';
+        }
+      });
+    });
+  </script>
+<script>
+  window.onload = function() {
+    // Your function call here
+    sendData();
+ 
+    $(document).ready(function() {
+    // Initialize DataTable with column width configuration, paging options, and search feature
+    $('#data-table').DataTable({
+        "paging": true,
+        "searching": true, // Enable search feature
+        "pageLength": 5, // Number of entries per page
+        "lengthMenu": [5, 10, 15, 20],
+        "columnDefs": [
+            { "width": "100px", "targets": [5, 6] } // Adjust width as needed
+        ]
+        });
+    });
+ 
+  };
+</script>
   <!-- Bootstrap JS, Popper.js, and jQuery -->
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> -->
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
  
   <!-- JavaScript for chart creation -->
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
  
   <script>
-    $(document).ready(function () {
-        $('#data-table').DataTable({
-            "paging": true,
-            "pageLength": 5,
-            "lengthMenu": [5, 10, 15, 20]
-        });
-    });
  
     setTimeout(function() {
         document.getElementById("splashScreen").style.display = "none";
     }, 3000);
  
-
+ 
  
     function sendData() {
       document.getElementById("loadingOverlay").style.display = "block"; // Show loading overlay
         // var input1Value = document.getElementById("items").value;
         // var input2Value = document.getElementById("department").value;
- 
         fetch('/sendData', {
             method: 'POST',
             headers: {
@@ -532,7 +620,7 @@ left:-40%;
     });
     }
   </script>
-
+ 
 <script>
   function refreshData() {
       // Get selected checkbox values
@@ -569,7 +657,8 @@ left:-40%;
         var table = document.createElement('table');
         table.classList.add('table');
    
-        // Create table header
+ 
+ 
         var thead = document.createElement('thead');
           var tr = document.createElement('tr');
           columns.forEach(function(column) {
@@ -579,6 +668,7 @@ left:-40%;
           });
           thead.appendChild(tr);
           table.appendChild(thead);
+ 
         var tbody = document.createElement('tbody');
           dataframe.forEach(function(row) {
               var tr = document.createElement('tr');
@@ -595,8 +685,8 @@ left:-40%;
           tableContainer.appendChild(table);
    
    
-          // let scrap_table = new DataTable('#data-table', {responsive: true});
-          $('#data-table').DataTable();
+        //  let scrap_table = new DataTable('#data-table', {responsive: true});
+        //  $('#data-table').DataTable();
    
       })
       .catch(error => {
@@ -617,7 +707,7 @@ left:-40%;
       popupContainer.style.pointerEvents = "auto";
     }
   }
-
+ 
   function confirmSubmit() {
   var confirmation = confirm("Are you sure?");
   if (confirmation) {
@@ -648,34 +738,34 @@ left:-40%;
       itemsContainer.innerHTML = '';
       departmentContainer.innerHTML = '';
       tableContainer.innerHTML = '';
-
+ 
       data.items.forEach(function(item) {
         var checkbox = document.createElement('input');
         checkbox.type = 'checkbox';
         checkbox.id = item;
         checkbox.name = 'items';
         checkbox.value = item;
-
+ 
         var label = document.createElement('label');
         label.htmlFor = item;
         label.appendChild(document.createTextNode(item));
-
+ 
         itemsContainer.appendChild(checkbox);
         itemsContainer.appendChild(label);
         itemsContainer.appendChild(document.createElement('br'));
       });
-
+ 
       data.department.forEach(function(department) {
         var checkbox = document.createElement('input');
         checkbox.type = 'checkbox';
         checkbox.id = department;
         checkbox.name = 'department';
         checkbox.value = department;
-
+ 
         var label = document.createElement('label');
         label.htmlFor = department;
         label.appendChild(document.createTextNode(department));
-
+ 
         departmentContainer.appendChild(checkbox);
         departmentContainer.appendChild(label);
         departmentContainer.appendChild(document.createElement('br'));
@@ -690,8 +780,8 @@ left:-40%;
   }
   return false; // Prevent form submission
 }
-
-  
+ 
+ 
   function showSuccessPopup() {
     var successPopup = document.getElementById("successPopup");
     successPopup.style.display = "block";

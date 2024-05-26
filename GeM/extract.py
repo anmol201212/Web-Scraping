@@ -6,71 +6,171 @@ from bs4 import BeautifulSoup
 import pandas as pd
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-from datetime import datetime
-
-
-
-def startfun(): 
-
+from datetime import datetime,timedelta
+from openpyxl import Workbook,load_workbook
+from pytz import UTC
+ 
+def extractdata():
+    wb = Workbook()
+ 
+    # Create a worksheet
+    ws = wb.active
+ 
     options = Options()
     options.add_argument("--headless")
-
+ 
     browser = webdriver.Chrome(options=options)
     # browser = webdriver.Chrome()
     browser.get("https://bidplus.gem.gov.in/all-bids")
-    
-    
+   
+   
     # Wait for the page to fully load
     WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'card')))
-    
+   
     # Creating empty DataFrame with columns
     columns1 = ['Bid Number', 'RA Number', 'Items', 'Quantity', 'Department', 'Start Date', 'End Date']
     df1 = pd.DataFrame(columns=columns1)
-    
-    
+   
+   
     soup = BeautifulSoup(browser.page_source, 'html.parser')
     total_no_of_pages = int(soup.find_all("a", class_="page-link")[-2].decode_contents())
     cards = None
-    
+    total_no_of_pages = total_no_of_pages - 1
+ 
     # for loop to iterage through the pages
-    for i in range(2,10):
-    # for i in range(2, total_no_of_pages):
-    
-        WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'card')))   
-    
+    # for i in range(2,10):
+    for i in range(2, total_no_of_pages):
+   
+        WebDriverWait(browser, 30).until(EC.presence_of_element_located((By.CLASS_NAME, 'card')))  
+   
         # Parse the HTML using BeautifulSoup
         soup = BeautifulSoup(browser.page_source, 'html.parser')
-
+ 
         # Find all card elements
         cards = soup.find_all('div', class_='card')
-    
+   
         data = extract_data(cards)
-    
+   
         df1 = pd.concat([df1, data], ignore_index=True)
-    
+   
         # Find the button and click
         button = browser.find_element(By.LINK_TEXT, str(i))
         button.click()
-    
-    items = ["Transformer","Services","Generation","REPAIRS","MACHINE"]
-    department = ["Ministry of Coal","Heavy Industries","Petroleum and Natural Gas","Civil Aviation","EducationDepartment"]
+   
     df1['End Date'] = pd.to_datetime(df1['End Date'], format='%d-%m-%Y %I:%M %p')
-
+ 
     # Get current time
     current_time = datetime.now()
-
+ 
+    # # Increase current time by 1 hour
+    current_time += timedelta(hours=1)
+ 
     # Filter DataFrame for rows where time is greater than current time
     filtered_df = df1[df1['End Date'] > current_time]
     filtered_df['End Date'] = filtered_df['End Date'].dt.strftime('%d-%m-%Y %I:%M %p')
-    
+    sorted_df = filtered_df.sort_values(by='End Date', ascending=True)
+    sorted_df.to_csv("example.csv", index=False)
     # Close the browser after the loop finishes
     browser.quit()
-
-    return items,department,filtered_df
-
-
-# Define a function to wait for the page to fully load
-
+ 
+def startfun():
+ 
+    wb = Workbook()
+ 
+    # Create a worksheet
+    ws = wb.active
+ 
+    options = Options()
+    options.add_argument("--headless")
+ 
+    browser = webdriver.Chrome(options=options)
+    # browser = webdriver.Chrome()
+    browser.get("https://bidplus.gem.gov.in/all-bids")
+   
+   
+    # Wait for the page to fully load
+    WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'card')))
+   
+    # Creating empty DataFrame with columns
+    columns1 = ['Bid Number', 'RA Number', 'Items', 'Quantity', 'Department', 'Start Date', 'End Date']
+    df1 = pd.DataFrame(columns=columns1)
+   
+   
+    soup = BeautifulSoup(browser.page_source, 'html.parser')
+    total_no_of_pages = int(soup.find_all("a", class_="page-link")[-2].decode_contents())
+    cards = None
+   
+    # for loop to iterage through the pages
+    for i in range(2,10):
+    # for i in range(2, total_no_of_pages):
+   
+        WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'card')))  
+   
+        # Parse the HTML using BeautifulSoup
+        soup = BeautifulSoup(browser.page_source, 'html.parser')
+ 
+        # Find all card elements
+        cards = soup.find_all('div', class_='card')
+   
+        data = extract_data(cards)
+   
+        df1 = pd.concat([df1, data], ignore_index=True)
+   
+        # Find the button and click
+        button = browser.find_element(By.LINK_TEXT, str(i))
+        button.click()
+   
+    items = ["Transformer","Services","Generation","REPAIRS","MACHINE"]
+    department = ["Ministry of Coal","Heavy Industries","Petroleum and Natural Gas","Civil Aviation","EducationDepartment"]
+    df1['End Date'] = pd.to_datetime(df1['End Date'], format='%d-%m-%Y %I:%M %p')
+ 
+    # Get current time
+    current_time = datetime.now()
+ 
+    # # Increase current time by 1 hour
+    # current_time += timedelta(hours=1)
+ 
+    # Filter DataFrame for rows where time is greater than current time
+    filtered_df = df1[df1['End Date'] > current_time]
+    filtered_df['End Date'] = filtered_df['End Date'].dt.strftime('%d-%m-%Y %I:%M %p')
+    sorted_df = filtered_df.sort_values(by='End Date', ascending=True)
+    sorted_df.to_excel("example.xlsx", index=False)
+    # Close the browser after the loop finishes
+    browser.quit()
+ 
+    return items,department,sorted_df
+ 
+def readexcel():
+   
+ 
+    df = pd.read_csv('bids_data.csv')
+    items = ["Custom Bid Services","BOQ Bids","3D Model","Laser Scanning","Digital Assets","Beam services""Engineering services","Asset Digitization","Mixer","AABS","Design","Analysis","Research","Automation","Concept","Integration","Antenna","Trolley","Pilot",
+"Mini Depth charge (MDC)"]
+    department = ["Petroleum","INDIAN OIL CORPORATION LIMITED","Bharat Petroleum Corporation Ltd","Department of Heavy Industry","ENGINEERS INDIA Limited","Department of Defence Production","Department of Military Affairs","Ministry of Defence"]
+    df['End Date'] = pd.to_datetime(df['End Date'])
+    df['Start Date'] = pd.to_datetime(df['Start Date'])
+ 
+    # Get current time
+    current_time = datetime.now(UTC)
+ 
+    # # Increase current time by 1 hour
+    # current_time += timedelta(hours=1)
+ 
+    # Filter DataFrame for rows where time is greater than current time
+    filtered_df = df[df['End Date'] > current_time]
+    filtered_df['End Date'] = filtered_df['End Date'].dt.strftime('%d-%m-%Y %I:%M %p')
+    # filtered_df.loc[:, 'End Date'] = filtered_df['End Date'].dt.strftime('%d-%m-%Y %I:%M %p')
+ 
+    filtered_df['Start Date'] = filtered_df['Start Date'].dt.strftime('%d-%m-%Y %I:%M %p')
+    # filtered_df.loc[:, 'Start Date'] = filtered_df['Start Date'].dt.strftime('%d-%m-%Y %I:%M %p')
+ 
+ 
+    sorted_df = filtered_df.sort_values(by='End Date', ascending=True)
+   
+    return items,department,sorted_df
+ 
+   
+ 
  
 def extract_data(cards):
     # Initialize lists to store data
