@@ -29,7 +29,7 @@ def start_scheduler():
     print("In scheduler")
     scheduler = BackgroundScheduler()
     print("Scheduler is Active")
-    scheduler.add_job(extractdata, 'interval', minutes=10)
+    scheduler.add_job(extractdata, 'interval', minutes=5)
     scheduler.start()
  
 @app.route('/sendData', methods=['POST'])
@@ -38,15 +38,7 @@ def receive_data():
     items, department, df1 = readexcel()
     columns1 = ['Bid Number', 'RA Number', 'Items', 'Quantity', 'Department', 'Start Date', 'End Date']
     df2 = pd.DataFrame(columns=columns1)
-    # # temp = items + department
-    # for i in items:
-    #     # filtered_df = df1[df1.apply(lambda row: row.astype(str).str.contains(i, case=False).any(), axis=1)]
-    #     filtered_df = df1[df1['Items'].str.contains(i, case=False, na=False)]
-    #     df2 = pd.concat([df2, filtered_df], ignore_index=True)
-    # for i in department:
-    #     # filtered_df = df1[df1.apply(lambda row: row.astype(str).str.contains(i, case=False).any(), axis=1)]
-    #     filtered_df = df1[df1['Department'].str.contains(i, case=False, na=False)]
-    #     df2 = pd.concat([df2, filtered_df], ignore_index=True)
+    
     df2 = pd.concat([df2,df1],ignore_index=True)
     json_df = df2.to_json(orient='records')  
     return jsonify({'items': items, 'department': department, 'dataframe': json_df})
@@ -58,14 +50,17 @@ def refresh_data():
     selected_items = data.get('selectedItems')
     selected_departments = data.get('selectedDepartments')
     columns1 = ['Bid Number', 'RA Number', 'Items', 'Quantity', 'Department', 'Start Date', 'End Date']
-    df2 = pd.DataFrame(columns=columns1)
+    # df1 = pd.DataFrame(columns=columns1)
     temp = selected_items + selected_departments
-#    --------------------------------------------
+
+# ----------------------------------------------
     filtered_df_items = pd.DataFrame(columns=columns1)
     filtered_df_items = df1[df1['Items'].str.contains('|'.join(selected_items), case=False, na=False)]
     filtered_df = filtered_df_items[filtered_df_items['Department'].str.contains('|'.join(selected_departments), case=False, na=False)]
     json_df = filtered_df.to_json(orient='records')
-# ----------------------------------------
+    print(filtered_df_items.shape)
+    print(df1.shape)
+# ----------------------------------------------
 
     # if not temp:
     #     df3 = pd.DataFrame(columns=columns1)
@@ -108,5 +103,5 @@ def submit_form():
     return jsonify({'items': items, 'department': department})
  
 if __name__ == '__main__':
-    # start_scheduler()
+    start_scheduler()
     app.run(host='0.0.0.0', debug=True)
